@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070b14">
+<title>SaidBid Крипта и Сайты</title>
+<meta name="description" content="SaidBid: создание сайтов от 1 000 ₽, покупка, продажа и обмен криптовалюты. Связь в Telegram.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+/* одна колонка для телефона: шапка, липкое меню страниц, контент, нижняя панель связи */
+--bg:#070b14;
+--surface:#0f1626;
+--line:rgba(255,255,255,.09);
+--text:#eef2fb;
+--muted:#9aa6c0;
+--c1:#3df2c8;
+--c2:#6aa8ff;
+--c3:#ff7ad9;
+--c4:#ffd36a;
+--tg:#2AABEE;
+--display:"Unbounded","Arial Black",sans-serif;
+--body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{
+background:var(--bg);color:var(--text);font-family:var(--body);
+font-size:16px;line-height:1.55;overflow-x:hidden;
+padding-bottom:calc(100px + env(safe-area-inset-bottom));
+}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--c1);outline-offset:3px;border-radius:8px}
+
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:var(--bg)}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5;will-change:transform}
+.o1{width:300px;height:300px;background:var(--c2);top:-80px;left:-90px;animation:float1 14s ease-in-out infinite}
+.o2{width:260px;height:260px;background:var(--c3);top:38%;right:-110px;opacity:.32;animation:float2 17s ease-in-out infinite}
+.o3{width:280px;height:280px;background:var(--c1);bottom:-100px;left:-60px;opacity:.28;animation:float1 20s ease-in-out infinite reverse}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 20%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 50% 20%,#000 10%,transparent 70%);opacity:.5}
+@keyframes float1{50%{transform:translate(40px,50px) scale(1.15)}}
+@keyframes float2{50%{transform:translate(-50px,-40px) scale(.9)}}
+
+.wrap{width:100%;max-width:520px;margin:0 auto;padding:0 18px}
+
+.shine{
+background:linear-gradient(100deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c1));
+background-size:300% 100%;
+-webkit-background-clip:text;background-clip:text;
+-webkit-text-fill-color:transparent;color:transparent;
+animation:shimmer 6s linear infinite;
+}
+@keyframes shimmer{to{background-position:-300% 0}}
+
+/* значок подтверждения */
+.vb{width:1.05em;height:1.05em;flex:none;display:inline-block;vertical-align:-.15em}
+
+/* шапка */
+header{display:flex;align-items:center;justify-content:space-between;padding:calc(16px + env(safe-area-inset-top)) 0 10px}
+.logo{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:.02em;display:inline-flex;align-items:center;gap:7px}
+.logo .vb{width:20px;height:20px}
+.live{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);padding:7px 12px;border:1px solid var(--line);border-radius:99px;background:rgba(255,255,255,.03)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c1);box-shadow:0 0 0 0 var(--c1);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+
+/* меню страниц */
+.nav{
+position:sticky;top:0;z-index:15;margin:0 -18px;padding:8px 18px;
+display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;
+background:rgba(7,11,20,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border-bottom:1px solid var(--line);
+}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;padding:10px 16px;border-radius:99px;font-weight:700;font-size:14.5px;color:var(--muted);border:1px solid transparent;min-height:44px;display:flex;align-items:center}
+.nav a.on{color:#06101a;background:linear-gradient(100deg,var(--c1),var(--c2));}
+
+.page{animation:rise .55s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateY(14px);opacity:.01}to{transform:none;opacity:1}}
+
+/* герой */
+.hero{padding:28px 0 6px}
+.tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);margin-bottom:14px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(32px,9.6vw,48px);line-height:1.1;letter-spacing:-.02em;text-wrap:balance}
+.lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:44ch}
+
+/* главный баннер: создание сайтов */
+.promo{
+position:relative;margin-top:24px;padding:24px 22px 22px;border-radius:26px;overflow:hidden;
+background:linear-gradient(160deg,rgba(106,168,255,.18),rgba(255,122,217,.1) 60%,rgba(61,242,200,.08));
+border:1px solid rgba(255,255,255,.14);
+}
+.promo::before{content:"";position:absolute;inset:-2px;border-radius:inherit;padding:2px;background:linear-gradient(100deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c1));background-size:300% 100%;animation:shimmer 5s linear infinite;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.promo .kick{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--c3)}
+.promo h2{margin-top:10px;font-size:clamp(26px,7.6vw,34px)}
+.promo .big{margin-top:14px;font-family:var(--display);font-weight:800;font-size:clamp(34px,10vw,46px);line-height:1;letter-spacing:-.02em}
+.promo .big small{font-size:.38em;font-weight:500;color:var(--muted);letter-spacing:0;margin-left:6px;-webkit-text-fill-color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{padding:8px 13px;border-radius:99px;font-size:13.5px;font-weight:600;border:1px solid var(--line);background:rgba(255,255,255,.06)}
+.promo p.d{margin-top:14px;color:var(--muted);font-size:15px}
+
+/* кнопки */
+.btns{display:grid;gap:12px;margin-top:20px}
+.btn{
+position:relative;display:flex;align-items:center;justify-content:center;gap:10px;
+min-height:58px;padding:0 22px;border-radius:18px;font-weight:700;font-size:17px;
+transition:transform .15s ease;overflow:hidden;
+}
+.btn:active{transform:scale(.97)}
+.btn.main{color:#06101a;background:linear-gradient(100deg,var(--c1),var(--c2),var(--c3),var(--c1));background-size:300% 100%;animation:shimmer 5s linear infinite;box-shadow:0 10px 34px -10px rgba(106,168,255,.7)}
+.btn.ghost{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn svg{width:22px;height:22px;flex:none}
+.btn small{display:block;font-weight:500;font-size:12px;opacity:.75}
+.btn .t{display:flex;flex-direction:column;line-height:1.15;text-align:left}
+
+.ticker{margin:24px -18px 0;overflow:hidden;border-block:1px solid var(--line);padding:12px 0;background:rgba(255,255,255,.02)}
+.track{display:flex;gap:34px;width:max-content;animation:scroll 26s linear infinite;font-family:var(--display);font-weight:500;font-size:14px;color:var(--muted)}
+.track span b{color:var(--text);font-weight:700}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+section{padding:40px 0 4px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(24px,7vw,32px);line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.sub{color:var(--muted);margin-top:10px}
+.cards{display:grid;gap:12px;margin-top:22px}
+.card{
+position:relative;padding:22px;border-radius:22px;border:1px solid var(--line);display:block;
+background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015));
+backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.card::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(130deg,var(--c1),transparent 35%,transparent 65%,var(--c3));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;pointer-events:none}
+.ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(61,242,200,.1);margin-bottom:14px}
+.ico svg{width:24px;height:24px;stroke:var(--c1);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.card h3{font-size:19px;font-weight:700;margin-bottom:6px}
+.card p{color:var(--muted);font-size:15px}
+.card .more{display:inline-block;margin-top:12px;font-weight:700;font-size:15px;color:var(--c1)}
+
+.steps{margin-top:22px;display:grid;gap:0}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;padding-bottom:26px;position:relative}
+.step:not(:last-child)::before{content:"";position:absolute;left:21px;top:46px;bottom:4px;width:2px;background:linear-gradient(var(--c2),transparent)}
+.num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:15px;border:1px solid var(--line);background:var(--surface)}
+.step h3{font-size:18px;margin-top:2px}
+.step p{color:var(--muted);font-size:15px;margin-top:4px}
+
+.notes{margin-top:22px;display:grid;gap:10px}
+.note{display:flex;gap:12px;padding:16px 18px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:15px;color:var(--muted)}
+.note b{color:var(--text)}
+.note i{flex:none;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:rgba(61,242,200,.12);color:var(--c1);font-style:normal;font-weight:800;font-size:14px}
+
+.contacts{margin-top:22px;display:grid;gap:12px}
+.person{display:flex;align-items:center;gap:14px;padding:18px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);min-height:84px}
+.ava{width:52px;height:52px;border-radius:50%;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:20px;color:#06101a;background:linear-gradient(135deg,var(--c1),var(--c2))}
+.person.m .ava{background:linear-gradient(135deg,var(--c3),var(--c4))}
+.person b{display:block;font-size:17px}
+.person span{color:var(--muted);font-size:14px}
+.person .go{margin-left:auto;width:22px;height:22px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.warn{margin-top:16px;padding:16px 18px;border-radius:16px;border:1px solid rgba(255,211,106,.3);background:rgba(255,211,106,.06);font-size:14.5px;color:#f3e3b8}
+
+details{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.03);margin-top:10px}
+summary{list-style:none;cursor:pointer;padding:18px 20px;font-weight:700;font-size:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:24px;color:var(--c1);transition:transform .2s;flex:none}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding:0 20px 18px;color:var(--muted);font-size:15px}
+details a{color:var(--c1);font-weight:700}
+
+.plist{margin-top:22px;display:grid;gap:12px}
+.pbox{border:1px solid var(--line);border-radius:22px;padding:6px 20px 8px;background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015));backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.pbox h3{font-size:16px;font-weight:700;padding:16px 0 6px}
+.price{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:13px 0;border-top:1px solid var(--line);font-size:15.5px}
+.price span{color:var(--muted)}
+.price b{font-family:var(--display);font-weight:700;font-size:15px;white-space:nowrap}
+
+/* подвал с подтверждением */
+footer{padding:44px 0 10px;text-align:center;color:var(--muted);font-size:13px}
+.verified{
+display:flex;align-items:center;justify-content:center;gap:12px;text-align:left;
+margin:0 auto;max-width:380px;padding:16px 18px;border-radius:20px;
+border:1px solid rgba(42,171,238,.4);background:rgba(42,171,238,.09);
+}
+.verified .vb{width:34px;height:34px;flex:none}
+.verified b{display:flex;align-items:center;gap:6px;font-family:var(--display);font-size:16px;color:var(--text)}
+.verified span{display:block;margin-top:2px;font-size:13.5px;color:#b9d9ee;line-height:1.35}
+.risk{margin:14px auto 0;max-width:42ch}
+
+/* нижняя панель */
+.dock{
+position:fixed;left:0;right:0;bottom:0;z-index:20;
+padding:12px 14px calc(10px + env(safe-area-inset-bottom));
+background:linear-gradient(transparent,rgba(7,11,20,.94) 38%);
+}
+.dock .in{max-width:492px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dock .btn{min-height:56px;padding:0 12px;font-size:15px;gap:8px}
+.dock .btn.ghost{background:rgba(18,26,44,.92)}
+.dock .btn svg{width:20px;height:20px}
+
+@media (min-width:700px){
+.wrap{max-width:620px}
+.cards.two{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+*,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="vb" viewBox="0 0 24 24">
+<path fill="#2AABEE" d="M12 1.5l2.4 1.7 2.9-.3 1.2 2.7 2.7 1.2-.3 2.9L22.5 12l-1.7 2.4.3 2.9-2.7 1.2-1.2 2.7-2.9-.3L12 22.5l-2.4-1.7-2.9.3-1.2-2.7-2.7-1.2.3-2.9L1.5 12l1.7-2.4-.3-2.9 2.7-1.2 1.2-2.7 2.9.3L12 1.5z"/>
+<path d="M8 12.3l2.7 2.7L16.2 9.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+</svg>
+
+<div class="bg" aria-hidden="true"><div class="grid"></div><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+
+<div class="wrap">
+<header>
+<div class="logo"><span class="shine">SaidBid</span><svg class="vb" aria-label="Подтверждено"><use href="#vb"/></svg></div>
+<div class="live"><span class="dot"></span>На связи</div>
+</header>
+
+<nav class="nav" id="nav" aria-label="Разделы сайта">
+<a href="#home" data-tab="home">Главная</a>
+<a href="#sites" data-tab="sites">Сайты</a>
+<a href="#crypto" data-tab="crypto">Крипта</a>
+<a href="#faq" data-tab="faq">Вопросы</a>
+<a href="#contacts" data-tab="contacts">Контакты</a>
+</nav>
+
+<main>
+
+<!-- ГЛАВНАЯ -->
+<div class="page" data-page="home">
+<div class="hero">
+<span class="tag">SaidBid · Сайты и крипта</span>
+<h1>Сделаю сайт и помогу <span class="shine">с криптой</span></h1>
+<p class="lead">Современные сайты для вашего дела и работа с криптовалютой. Всё обсуждаем лично в Telegram.</p>
+</div>
+
+<div class="promo">
+<span class="kick">SaidBid Web</span>
+<h2>Создание <span class="shine">сайтов под ключ</span></h2>
+<div class="big shine">от 1 000 ₽</div>
+<div class="chips">
+<span class="chip">Визитка</span><span class="chip">Лендинг</span><span class="chip">Каталог</span><span class="chip">Интернет-магазин</span><span class="chip">Сайт для бизнеса</span>
+</div>
+<p class="d">Современный дизайн, удобный интерфейс и индивидуальный подход к каждому проекту.</p>
+<div class="btns">
+<a class="btn main" href="https://t.me/Saidbid" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.5c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.3c-.3.3-.5.5-1 .5l.4-4.9 8.9-8.1c.4-.3-.1-.5-.6-.2L6.6 13 1.9 11.5c-1-.3-1-1 .2-1.5L20.4 3c.9-.3 1.6.2 1.5 1.3Z"/></svg>
+<span class="t">Заказать сайт<small>@Saidbid</small></span>
+</a>
+<a class="btn ghost" href="#sites">Смотреть все цены</a>
+</div>
+</div>
+
+<section>
+<h2>Ещё <span class="shine">направления</span></h2>
+<div class="cards">
+<a class="card" href="#crypto">
+<div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 8H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H7"/></svg></div>
+<h3>Криптовалюта</h3>
+<p>Покупка, продажа и обмен BTC, ETH, USDT и других монет. Консультации по кошелькам и KYC.</p>
+<span class="more">Подробнее →</span>
+</a>
+<a class="card" href="#sites">
+<div class="ico"><svg viewBox="0 0 24 24"><path d="M4 19V8l8-4 8 4v11M9 19v-6h6v6"/></svg></div>
+<h3>Обучение созданию сайтов</h3>
+<p>Базовое, индивидуальное и продвинутое обучение. Можно сделать сайт вместе со мной.</p>
+<span class="more">Смотреть цены →</span>
+</a>
+</div>
+</section>
+
+<section>
+<h2>Важно <span class="shine">знать</span></h2>
+<div class="notes">
+<div class="note"><i>1</i><div><b>Общаемся только в Telegram.</b> Владелец @Saidbid, менеджер @saidbidofficialmanager.</div></div>
+<div class="note"><i>2</i><div><b>Мошенники копируют имена.</b> Мои официальные аккаунты только два, они указаны на этой странице.</div></div>
+<div class="note"><i>3</i><div><b>Курс называю в момент обращения,</b> потому что он меняется каждую минуту.</div></div>
+</div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+<div class="track">
+<span><b>BTC</b> Bitcoin</span><span><b>ETH</b> Ethereum</span><span><b>USDT</b> Tether</span><span><b>TON</b> Toncoin</span><span><b>SOL</b> Solana</span><span><b>BNB</b> BNB</span><span><b>TRX</b> Tron</span><span><b>LTC</b> Litecoin</span>
+<span><b>BTC</b> Bitcoin</span><span><b>ETH</b> Ethereum</span><span><b>USDT</b> Tether</span><span><b>TON</b> Toncoin</span><span><b>SOL</b> Solana</span><span><b>BNB</b> BNB</span><span><b>TRX</b> Tron</span><span><b>LTC</b> Litecoin</span>
+</div>
+</div>
+</div>
+
+<!-- САЙТЫ -->
+<div class="page" data-page="sites" hidden>
+<section style="padding-top:28px">
+<span class="tag" style="color:var(--c3)">SaidBid Web</span>
+<h2>Создание <span class="shine">сайтов</span></h2>
+<p class="sub">Современный дизайн, удобный интерфейс и индивидуальный подход к каждому проекту.</p>
+<div class="plist">
+<div class="pbox">
+<h3>Создание сайтов</h3>
+<div class="price"><span>Сайт-визитка</span><b class="shine">1 000 ₽</b></div>
+<div class="price"><span>Сайт для бизнеса</span><b class="shine">2 000 ₽</b></div>
+<div class="price"><span>Интернет-магазин</span><b class="shine">3 500 ₽</b></div>
+<div class="price"><span>Каталог товаров</span><b class="shine">1 500 ₽</b></div>
+<div class="price"><span>Лендинг</span><b class="shine">1 200 ₽</b></div>
+</div>
+<div class="pbox">
+<h3>Дополнительные услуги</h3>
+<div class="price"><span>Добавление отзывов</span><b class="shine">300 ₽</b></div>
+<div class="price"><span>Добавление контактов</span><b class="shine">200 ₽</b></div>
+<div class="price"><span>Изменение дизайна</span><b class="shine">от 300 ₽</b></div>
+<div class="price"><span>Исправление ошибок</span><b class="shine">от 200 ₽</b></div>
+<div class="price"><span>Добавление новых функций</span><b class="shine">от 300 ₽</b></div>
+</div>
+<div class="pbox">
+<h3>Обучение</h3>
+<div class="price"><span>Базовое обучение</span><b class="shine">400 ₽</b></div>
+<div class="price"><span>Индивидуальное обучение</span><b class="shine">700 ₽</b></div>
+<div class="price"><span>Создание сайта вместе со мной</span><b class="shine">1 000 ₽</b></div>
+<div class="price"><span>Продвинутое обучение</span><b class="shine">1 500 ₽</b></div>
+</div>
+</div>
+<div class="btns">
+<a class="btn main" href="https://t.me/Saidbid" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.5c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.3c-.3.3-.5.5-1 .5l.4-4.9 8.9-8.1c.4-.3-.1-.5-.6-.2L6.6 13 1.9 11.5c-1-.3-1-1 .2-1.5L20.4 3c.9-.3 1.6.2 1.5 1.3Z"/></svg>
+<span class="t">Заказать сайт<small>@Saidbid</small></span>
+</a>
+</div>
+</section>
+
+<section>
+<h2>Как <span class="shine">заказать</span></h2>
+<div class="steps">
+<div class="step"><div class="num">1</div><div><h3>Пишете в Telegram</h3><p>Расскажите, какой сайт нужен и для чего.</p></div></div>
+<div class="step"><div class="num">2</div><div><h3>Обсуждаем детали</h3><p>Согласуем что будет на сайте, дизайн и стоимость.</p></div></div>
+<div class="step"><div class="num">3</div><div><h3>Получаете сайт</h3><p>Делаю сайт и вношу правки, чтобы результат вам подошёл.</p></div></div>
+</div>
+</section>
+</div>
+
+<!-- КРИПТА -->
+<div class="page" data-page="crypto" hidden>
+<section style="padding-top:28px">
+<span class="tag">Крипта · USDT · Обмен</span>
+<h2>Работаю с <span class="shine">криптовалютой</span></h2>
+<p class="sub">Куплю, продам и обменяю. Помогу разобраться, если вы только начинаете.</p>
+<div class="cards">
+<article class="card">
+<div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18M17 8H9.5a2.5 2.5 0 0 0 0 5h5a2.5 2.5 0 0 1 0 5H7"/></svg></div>
+<h3>Покупка криптовалюты</h3>
+<p>Помогу купить BTC, ETH, USDT и другие монеты по актуальному курсу.</p>
+</article>
+<article class="card">
+<div class="ico"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8M15 7h6v6"/></svg></div>
+<h3>Продажа криптовалюты</h3>
+<p>Выведу вашу крипту в удобный для вас вид. Условия обсудим в личной переписке.</p>
+</article>
+<article class="card">
+<div class="ico"><svg viewBox="0 0 24 24"><path d="M7 7h13l-3-3M17 17H4l3 3"/></svg></div>
+<h3>Обмен</h3>
+<p>Обмен между монетами и сетями: USDT, BTC, ETH, TON и другие.</p>
+</article>
+<article class="card">
+<div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.5-3.2 7.8-8 9-4.8-1.2-8-4.5-8-9V6l8-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+<h3>Консультации</h3>
+<p>Объясню, как устроены кошельки, переводы и верификация на биржах (KYC).</p>
+</article>
+</div>
+<div class="btns">
+<a class="btn main" href="https://t.me/Saidbid" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.5c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.3c-.3.3-.5.5-1 .5l.4-4.9 8.9-8.1c.4-.3-.1-.5-.6-.2L6.6 13 1.9 11.5c-1-.3-1-1 .2-1.5L20.4 3c.9-.3 1.6.2 1.5 1.3Z"/></svg>
+<span class="t">Написать владельцу<small>@Saidbid</small></span>
+</a>
+<a class="btn ghost" href="https://t.me/saidbidofficialmanager" target="_blank" rel="noopener">
+<span class="t">Написать менеджеру<small>@saidbidofficialmanager</small></span>
+</a>
+</div>
+</section>
+
+<section>
+<h2>Как <span class="shine">всё проходит</span></h2>
+<div class="steps">
+<div class="step"><div class="num">1</div><div><h3>Пишете в Telegram</h3><p>Скажите, что хотите сделать: купить, продать или обменять, и на какую сумму.</p></div></div>
+<div class="step"><div class="num">2</div><div><h3>Согласуем условия</h3><p>Называю актуальный курс, способ и порядок действий. Всё заранее и по пунктам.</p></div></div>
+<div class="step"><div class="num">3</div><div><h3>Проводим сделку</h3><p>Выполняем по договорённости и подтверждаем результат в переписке.</p></div></div>
+</div>
+</section>
+</div>
+
+<!-- ВОПРОСЫ -->
+<div class="page" data-page="faq" hidden>
+<section style="padding-top:28px">
+<h2>Частые <span class="shine">вопросы</span></h2>
+<p class="sub">Не нашли ответ? Напишите в Telegram.</p>
+<details><summary>Сколько стоит сайт?</summary><p>Визитка 1 000 ₽, лендинг 1 200 ₽, каталог 1 500 ₽, сайт для бизнеса 2 000 ₽, интернет-магазин 3 500 ₽. Все цены на странице <a href="#sites">Сайты</a>.</p></details>
+<details><summary>Как заказать сайт?</summary><p>Напишите владельцу @Saidbid в Telegram: расскажите, какой сайт нужен, и мы всё обсудим.</p></details>
+<details><summary>Можно ли научиться делать сайты?</summary><p>Да. Есть базовое, индивидуальное и продвинутое обучение, а также создание сайта вместе со мной.</p></details>
+<details><summary>Можно ли изменить или доработать готовый сайт?</summary><p>Да. Добавляю отзывы и контакты, меняю дизайн, исправляю ошибки и добавляю новые функции.</p></details>
+<details><summary>Как узнать курс криптовалюты?</summary><p>Курс меняется каждую минуту, поэтому я называю его в момент обращения в Telegram.</p></details>
+<details><summary>Можно ли обратиться новичку в крипте?</summary><p>Да. Расскажу простыми словами, что и как делать, и помогу пройти первые шаги.</p></details>
+<details><summary>С кем лучше связаться?</summary><p>По любому вопросу можно писать владельцу. Если нужно быстрее, пишите менеджеру.</p></details>
+</section>
+</div>
+
+<!-- КОНТАКТЫ -->
+<div class="page" data-page="contacts" hidden>
+<section style="padding-top:28px">
+<h2>Контакты</h2>
+<p class="sub">Выберите, с кем удобнее связаться.</p>
+<div class="contacts">
+<a class="person" href="https://t.me/Saidbid" target="_blank" rel="noopener">
+<div class="ava">S</div>
+<div><b style="display:flex;align-items:center;gap:6px">SaidBid <svg class="vb"><use href="#vb"/></svg></b><span>Владелец · @Saidbid</span></div>
+<svg class="go" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+</a>
+<a class="person m" href="https://t.me/saidbidofficialmanager" target="_blank" rel="noopener">
+<div class="ava">М</div>
+<div><b>Менеджер</b><span>@saidbidofficialmanager</span></div>
+<svg class="go" viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+</a>
+</div>
+<p class="warn">Будьте внимательны: мошенники копируют имена. Мои официальные аккаунты только два: @Saidbid и @saidbidofficialmanager.</p>
+</section>
+</div>
+
+</main>
+
+<footer>
+<div class="verified">
+<svg class="vb" aria-hidden="true"><use href="#vb"/></svg>
+<div>
+<b>Saidbid</b>
+<span>Сайт подтверждён владельцем Saidbid</span>
+</div>
+</div>
+<p class="risk">Операции с криптовалютой связаны с рыночными рисками. Информация на сайте не является инвестиционной рекомендацией.</p>
+</footer>
+</div>
+
+<div class="dock">
+<div class="in">
+<a class="btn main" href="https://t.me/Saidbid" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.9 4.3 18.7 19.5c-.2 1-.9 1.3-1.7.8l-4.8-3.6-2.3 2.3c-.3.3-.5.5-1 .5l.4-4.9 8.9-8.1c.4-.3-.1-.5-.6-.2L6.6 13 1.9 11.5c-1-.3-1-1 .2-1.5L20.4 3c.9-.3 1.6.2 1.5 1.3Z"/></svg>
+<span class="t">Владелец<small>@Saidbid</small></span>
+</a>
+<a class="btn ghost" href="https://t.me/saidbidofficialmanager" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>
+<span class="t">Менеджер<small>Написать</small></span>
+</a>
+</div>
+</div>
+
+<script>
+(function(){
+var pages=[].slice.call(document.querySelectorAll('[data-page]'));
+var tabs=[].slice.call(document.querySelectorAll('[data-tab]'));
+var nav=document.getElementById('nav');
+var titles={home:'SaidBid Крипта и Сайты',sites:'Создание сайтов, SaidBid',crypto:'Крипта, SaidBid',faq:'Вопросы, SaidBid',contacts:'Контакты, SaidBid'};
+function show(){
+var n=(location.hash||'#home').slice(1);
+if(!pages.some(function(p){return p.getAttribute('data-page')===n})) n='home';
+pages.forEach(function(p){p.hidden=p.getAttribute('data-page')!==n});
+tabs.forEach(function(t){
+var on=t.getAttribute('data-tab')===n;
+t.classList.toggle('on',on);
+if(on){t.setAttribute('aria-current','page');nav.scrollLeft=t.offsetLeft-(nav.clientWidth-t.offsetWidth)/2}
+else t.removeAttribute('aria-current');
+});
+document.title=titles[n]||titles.home;
+window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',show);
+show();
+})();
+</script>
+</body>
+</html>
+
